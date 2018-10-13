@@ -4,15 +4,16 @@
 #
 Name     : perl-Curses
 Version  : 1.36
-Release  : 3
+Release  : 4
 URL      : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.36.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.36.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libc/libcurses-perl/libcurses-perl_1.36-1.debian.tar.xz
 Summary  : ~
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0
-Requires: perl-Curses-lib
-Requires: perl-Curses-license
+Requires: perl-Curses-data = %{version}-%{release}
+Requires: perl-Curses-lib = %{version}-%{release}
+Requires: perl-Curses-license = %{version}-%{release}
 BuildRequires : buildreq-cpan
 BuildRequires : pkgconfig(ncursesw)
 
@@ -22,27 +23,29 @@ The Curses Perl Module
 COPYRIGHT AND LICENSE INFORMATION IS AT THE END OF THIS FILE
 ============================================================
 
+%package data
+Summary: data components for the perl-Curses package.
+Group: Data
+
+%description data
+data components for the perl-Curses package.
+
+
 %package dev
 Summary: dev components for the perl-Curses package.
 Group: Development
 Requires: perl-Curses-lib = %{version}-%{release}
+Requires: perl-Curses-data = %{version}-%{release}
 Provides: perl-Curses-devel = %{version}-%{release}
 
 %description dev
 dev components for the perl-Curses package.
 
 
-%package doc
-Summary: doc components for the perl-Curses package.
-Group: Documentation
-
-%description doc
-doc components for the perl-Curses package.
-
-
 %package lib
 Summary: lib components for the perl-Curses package.
 Group: Libraries
+Requires: perl-Curses-data = %{version}-%{release}
 Requires: perl-Curses-license = %{version}-%{release}
 
 %description lib
@@ -86,13 +89,13 @@ make TEST_VERBOSE=1 test
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/perl-Curses
-cp Copying %{buildroot}/usr/share/doc/perl-Curses/Copying
-cp deblicense/copyright %{buildroot}/usr/share/doc/perl-Curses/deblicense_copyright
+mkdir -p %{buildroot}/usr/share/package-licenses/perl-Curses
+cp Copying %{buildroot}/usr/share/package-licenses/perl-Curses/Copying
+cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Curses/deblicense_copyright
 if test -f Makefile.PL; then
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
-./Build install --installdirs=site --destdir=%{buildroot}
+./Build install --installdirs=vendor --destdir=%{buildroot}
 fi
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
@@ -101,20 +104,20 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/Curses.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Curses.pm
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/package-licenses/perl-Curses/Copying
 
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/Curses.3
 
-%files doc
-%defattr(0644,root,root,0755)
-%doc /usr/share/doc/perl\-Curses/*
-
 %files lib
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/auto/Curses/Curses.so
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/auto/Curses/Curses.so
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/perl-Curses/deblicense_copyright
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-Curses/deblicense_copyright
