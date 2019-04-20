@@ -4,14 +4,13 @@
 #
 Name     : perl-Curses
 Version  : 1.36
-Release  : 11
+Release  : 12
 URL      : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.36.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.36.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libc/libcurses-perl/libcurses-perl_1.36-1.debian.tar.xz
-Summary  : ~
+Summary  : Character screen handling and windowing
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0
-Requires: perl-Curses-data = %{version}-%{release}
 Requires: perl-Curses-lib = %{version}-%{release}
 Requires: perl-Curses-license = %{version}-%{release}
 BuildRequires : buildreq-cpan
@@ -23,20 +22,12 @@ The Curses Perl Module
 COPYRIGHT AND LICENSE INFORMATION IS AT THE END OF THIS FILE
 ============================================================
 
-%package data
-Summary: data components for the perl-Curses package.
-Group: Data
-
-%description data
-data components for the perl-Curses package.
-
-
 %package dev
 Summary: dev components for the perl-Curses package.
 Group: Development
 Requires: perl-Curses-lib = %{version}-%{release}
-Requires: perl-Curses-data = %{version}-%{release}
 Provides: perl-Curses-devel = %{version}-%{release}
+Requires: perl-Curses = %{version}-%{release}
 
 %description dev
 dev components for the perl-Curses package.
@@ -45,7 +36,6 @@ dev components for the perl-Curses package.
 %package lib
 Summary: lib components for the perl-Curses package.
 Group: Libraries
-Requires: perl-Curses-data = %{version}-%{release}
 Requires: perl-Curses-license = %{version}-%{release}
 
 %description lib
@@ -65,7 +55,7 @@ license components for the perl-Curses package.
 cd ..
 %setup -q -T -D -n Curses-1.36 -b 1
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Curses-1.36/deblicense/
+cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Curses-1.36/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -106,10 +96,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 %defattr(-,root,root,-)
 /usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Curses.pm
 
-%files data
-%defattr(-,root,root,-)
-/usr/share/package-licenses/perl-Curses/Copying
-
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/Curses.3
@@ -120,4 +106,5 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-Curses/Copying
 /usr/share/package-licenses/perl-Curses/deblicense_copyright
