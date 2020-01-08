@@ -4,15 +4,15 @@
 #
 Name     : perl-Curses
 Version  : 1.36
-Release  : 14
+Release  : 15
 URL      : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.36.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.36.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libc/libcurses-perl/libcurses-perl_1.36-1.debian.tar.xz
-Summary  : Character screen handling and windowing
+Summary  : ~
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0
-Requires: perl-Curses-lib = %{version}-%{release}
 Requires: perl-Curses-license = %{version}-%{release}
+Requires: perl-Curses-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 BuildRequires : pkgconfig(ncursesw)
 
@@ -25,21 +25,11 @@ COPYRIGHT AND LICENSE INFORMATION IS AT THE END OF THIS FILE
 %package dev
 Summary: dev components for the perl-Curses package.
 Group: Development
-Requires: perl-Curses-lib = %{version}-%{release}
 Provides: perl-Curses-devel = %{version}-%{release}
 Requires: perl-Curses = %{version}-%{release}
 
 %description dev
 dev components for the perl-Curses package.
-
-
-%package lib
-Summary: lib components for the perl-Curses package.
-Group: Libraries
-Requires: perl-Curses-license = %{version}-%{release}
-
-%description lib
-lib components for the perl-Curses package.
 
 
 %package license
@@ -50,18 +40,28 @@ Group: Default
 license components for the perl-Curses package.
 
 
+%package perl
+Summary: perl components for the perl-Curses package.
+Group: Default
+Requires: perl-Curses = %{version}-%{release}
+
+%description perl
+perl components for the perl-Curses package.
+
+
 %prep
 %setup -q -n Curses-1.36
-cd ..
-%setup -q -T -D -n Curses-1.36 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libcurses-perl_1.36-1.debian.tar.xz
+cd %{_builddir}/Curses-1.36
 mkdir -p deblicense/
-cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Curses-1.36/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/Curses-1.36/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -71,7 +71,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -80,8 +80,8 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Curses
-cp Copying %{buildroot}/usr/share/package-licenses/perl-Curses/Copying
-cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Curses/deblicense_copyright
+cp %{_builddir}/Curses-1.36/Copying %{buildroot}/usr/share/package-licenses/perl-Curses/c0bf1a619a3a61a05da7ec8a9845e48fa4511c97
+cp %{_builddir}/Curses-1.36/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Curses/ab4a77f029f5fbb263361f154d56e733262c726a
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -94,17 +94,17 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Curses.pm
 
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/Curses.3
 
-%files lib
-%defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/auto/Curses/Curses.so
-
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Curses/Copying
-/usr/share/package-licenses/perl-Curses/deblicense_copyright
+/usr/share/package-licenses/perl-Curses/ab4a77f029f5fbb263361f154d56e733262c726a
+/usr/share/package-licenses/perl-Curses/c0bf1a619a3a61a05da7ec8a9845e48fa4511c97
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Curses.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/Curses/Curses.so
