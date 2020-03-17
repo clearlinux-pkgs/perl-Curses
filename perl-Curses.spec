@@ -4,7 +4,7 @@
 #
 Name     : perl-Curses
 Version  : 1.36
-Release  : 15
+Release  : 16
 URL      : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.36.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.36.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libc/libcurses-perl/libcurses-perl_1.36-1.debian.tar.xz
@@ -81,7 +81,7 @@ make TEST_VERBOSE=1 test
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Curses
 cp %{_builddir}/Curses-1.36/Copying %{buildroot}/usr/share/package-licenses/perl-Curses/c0bf1a619a3a61a05da7ec8a9845e48fa4511c97
-cp %{_builddir}/Curses-1.36/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Curses/ab4a77f029f5fbb263361f154d56e733262c726a
+cp %{_builddir}/debian/copyright %{buildroot}/usr/share/package-licenses/perl-Curses/ab4a77f029f5fbb263361f154d56e733262c726a
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -106,5 +106,5 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Curses.pm
-/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/Curses/Curses.so
+/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/Curses.pm
+/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/auto/Curses/Curses.so
