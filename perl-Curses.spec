@@ -4,7 +4,7 @@
 #
 Name     : perl-Curses
 Version  : 1.38
-Release  : 26
+Release  : 27
 URL      : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.38.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.38.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libc/libcurses-perl/libcurses-perl_1.36-1.debian.tar.xz
@@ -106,5 +106,4 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.34.0/x86_64-linux-thread-multi/Curses.pm
-/usr/lib/perl5/vendor_perl/5.34.0/x86_64-linux-thread-multi/auto/Curses/Curses.so
+/usr/lib/perl5/*
