@@ -1,446 +1,352 @@
-libcurses-perl (1.36-1) unstable; urgency=medium
+This is the list of changes in each release.  For general historical
+information, see the file 'HISTORY'.
 
-  [ gregor herrmann ]
-  * Remove Jay Bonci from Uploaders. Thanks for your work!
-  * Remove Ryan Niebur from Uploaders. Thanks for your work!
+Note that the filename "ChangeLog" is recognized by the CPAN machinery as the
+name of a change log.
 
-  [ Axel Beckert ]
-  * Import upstream version 1.36
-    + Fixes FTBFS on GNU Hurd. Thanks Pino Toscano! (Closes: #749911)
-    + Drop patch with previous, now outdated GNU Hurd fixes.
-  * Add myself to Uploaders.
+New in 1.41 (Released August 18, 2022)
 
- -- Axel Beckert <abe@debian.org>  Sun, 21 Aug 2016 16:39:32 +0200
+  Fix bug in previous release causing non-GNU make to fail.
 
-libcurses-perl (1.34-1) unstable; urgency=medium
+New in 1.40 (Released August 17, 2022)
 
-  * Team upload.
+  Make passes make variables to 'test.syms' in environment instead of
+  'test.syms' reading and trying to interpret the make file.  This makes it
+  possible to override e.g. LDLOADLIBS on the make command line.  Also makes
+  it less icky.
 
-  [ Salvatore Bonaccorso ]
-  * debian/control: Use HTTPS transport protocol for Vcs-Git URI
-  * debian/control: Remove Franck Joncourt from Uploaders.
-    Thanks to Tobias Frost (Closes: #831290)
+  Fix compile errors in cdemo.c: 'sleep' not defined, argument count is not
+  type int.
 
-  [ gregor herrmann ]
-  * Change bugtracker URL(s) to HTTPS.
-  * debian/copyright: change Copyright-Format 1.0 URL to HTTPS.
+  Fix make file for cdemo so it doesn't use the Perl compile rule for cdemo.o.
 
-  [ Axel Beckert ]
-  * Add debian/upstream/metadata
-  * Import upstream version 1.34
-  * Declare compliance with Debian Policy 3.9.8. (No changes needed.)
-  * Enable all hardening flags.
+  Split ChangeLog file out of HISTORY file.
 
- -- Axel Beckert <abe@debian.org>  Tue, 09 Aug 2016 23:06:43 +0200
+New in 1.39 (Released August 11, 2022)
 
-libcurses-perl (1.33-1) unstable; urgency=medium
+  Add #include <stdbool.h> to top of Curses.c to fix a conflict between the
+  Curses header files and Perl header files that causes a "loadable library
+  and perl binaries are mismatched" / handshake key failure when you try to
+  load the Perl module.
 
-  * Team upload
+New in 1.38 (Released July 26, 2021)
 
-  * Import upstream version 1.33
-  * Fix lintian warnings dep5-copyright-license-name-not-unique and
-    missing-license-paragraph-in-dep5-copyright by adding a "Comment:"
-    header before the meta-license ("… same terms as Perl …").
-  * Declare package aus autopkgtestable.
+  Fix compilation failure with some compilers, including AIX's because
+  _XOPEN_SOURCE_EXTENDED was defined with null value.
 
- -- Axel Beckert <abe@debian.org>  Fri, 09 Oct 2015 22:36:24 +0200
+New in 1.37 (Released October 3, 2020)
 
-libcurses-perl (1.32-1) unstable; urgency=medium
+  Fix printw for wide characters.
 
-  * Team upload
+  Fix bug: wenclose() and mouse_trafo() treat an integer as a boolean.  The
+  functional effect is they return true if they fail to do the window move (I
+  don't understand this - there's some kind of window move that is part of
+  every function).  False is better.
 
-  [ Salvatore Bonaccorso ]
-  * Update Vcs-Browser URL to cgit web frontend
+New in 1.36 (Released August 14, 2016)
 
-  [ Axel Beckert ]
-  * Import new upstream release
-    + Drop one patch and two hunks which were applied upstream
-  * Bump Standards-Version to 3.9.6 (no changes needed)
+  Fix the GNU Hurd thing from 1.35 by including the hints file in the
+  manifest.
 
- -- Axel Beckert <abe@debian.org>  Thu, 25 Sep 2014 00:49:12 +0200
+New in 1.35 (Released July 11, 2016)
 
-libcurses-perl (1.31-1) unstable; urgency=medium
+  Added hints file for GNU Hurd ($OSNAME == 'gnu').  From Pino Toscano.
 
-  [ gregor herrmann ]
-  * debian/rules: remove unused variable, drop parameter which debhelper
-    passes by default.
+New in 1.34 (Released April 2, 2016)
 
-  [ Damyan Ivanov ]
-  * Imported Upstream version 1.31
-  * refresh t_upstream_spelling.diff to apply cleanly
-  * forward t_upstream_spelling.diff upstream
-  * add a patch fixing encoding issues in Curses.pm POD
-  * add two new files to debian/copyright
-  * declare conformance with Policy 3.9.5 (no changes needed)
+  Several bugs fixed in demo programs (which also function as the
+  documentation) for forms and menus and comments added explaining need to
+  keep Perl variables around to avoid invalid memory references.
 
- -- Damyan Ivanov <dmn@debian.org>  Wed, 21 May 2014 12:00:22 +0300
+New in 1.33 (Released October 3, 2015)
 
-libcurses-perl (1.28-2) unstable; urgency=medium
+  Package contains META files.
 
-  * Team upload.
+New in 1.32 (Released August 9, 2014)
 
-  [ Ansgar Burchardt ]
-  * debian/control: Convert Vcs-* fields to Git.
+  Makefile.PL: if /usr/include/ncurses/ncurses.h exists, use Ncurses regardless
+  of what the $guess_cfg table says for the OS at hand.  This fixes the former
+  hybrid approach which didn't work for a Solaris 11 system that has both
+  Ncurses and BSD curses.
 
-  [ Salvatore Bonaccorso ]
-  * Change Vcs-Git to canonical URI (git://anonscm.debian.org)
-  * Change search.cpan.org based URIs to metacpan.org based URIs
+  Typographical error in documentation fixed.
 
-  [ Axel Beckert ]
-  * debian/copyright: migrate pre-1.0 format to 1.0 using "cme fix dpkg-
-    copyright"
+New in 1.31 (Released April 26, 2014)
 
-  [ gregor herrmann ]
-  * Strip trailing slash from metacpan URLs.
+  Fix compile failure with some Curses libraries, introduced in
+  1.29 - undefined KEY_CODE_YES.
 
-  [ intrigeri ]
-  * Bump debhelper compat level to 9.
-  * Adjust versioned Build-Depends on debhelper to (>= 9.20120312~)
-    to get hardening build flags.
-  * Reformat debian/control with cme fix dpkg.
-  * Link to the versioned GPL-1 symlink in /usr/share/common-licenses.
-  * Don't override dh_auto_configure, to get hardening build flags.
+  Fix documentation: wide character functions exist back to Perl 5.6,
+  not 5.16.
 
- -- intrigeri <intrigeri@debian.org>  Sun, 09 Mar 2014 02:39:23 +0100
+New in 1.30 (Released April 19, 2014)
 
-libcurses-perl (1.28-1) unstable; urgency=low
+  Fix build failure: Use older substitutes if Perl is too old to have
+  the 'utf8_to_uvchr_buf' function they use; don't include the wide character
+  functions if Perl is even too old to have the substitutes.  Broken in 1.29.
 
-  [ Ryan Niebur ]
-  * Update ryan52's email address
+  Fix "constant not provided by your vendor" message when you refer to a
+  function that does not exist in the Curses module.
 
-  [ Franck Joncourt ]
-  * New upstream release.
-  * Add /me as Uploader.
-  * Switch to dpkg-source 3.0 (quilt) format:
-    + Removed useless README.source file which only documented the usage of
-      quilt.
-    + Removed BD on quilt.
-    + Removed debhelper option (--with-quilt).
-  * Updated BD:
-    + Use of the override_dh targets requires at least debhelper (>= 7.0.50).
-    + Relaxed versionned dependency on perl (>= 5.8) since oldstable has
-      5.8.8.
-  * Bumped up Standards-Version to 3.8.4 (no changes).
-  * Added patch t_upstream_spelling.diff to fix a spelling error.
+  Minor fixes to documentation of new wide character functions.
 
- -- Franck Joncourt <franck@debian.org>  Thu, 28 Jan 2010 21:06:25 +0100
-
-libcurses-perl (1.27-2) unstable; urgency=low
-
-  [ Nathan Handler ]
-  * debian/watch: Update to ignore development releases.
-
-  [ Ryan Niebur ]
-  * patch from Barry deFreese to fix build on Hurd (Closes: #533698)
-  * Add myself to Uploaders
-  * Debian Policy 3.8.2
-  * update d/rules format a bit
-
- -- Ryan Niebur <ryanryan52@gmail.com>  Sun, 21 Jun 2009 20:27:26 -0700
-
-libcurses-perl (1.27-1) unstable; urgency=low
-
-  * New upstream release.
-
- -- gregor herrmann <gregoa@debian.org>  Sat, 24 Jan 2009 02:23:45 +0100
-
-libcurses-perl (1.26-1) unstable; urgency=low
-
-  * New upstream release.
-  * debian/control:
-    - switch Vcs-Browser field to ViewSVN
-    - add ${misc:Depends} to Depends: field
-    - change my email address
-  * Set debhelper compatibility level to 7; adapt
-    debian/{control,compat,rules}.
-  * debian/copyright: update formatting.
-
- -- gregor herrmann <gregoa@debian.org>  Mon, 05 Jan 2009 15:56:32 +0100
-
-libcurses-perl (1.24-1) unstable; urgency=low
-
-  * New upstream release
-  * Added myself as an uploader
-  * Standards-version -> 3.8.0 (no changes)
-
- -- Gunnar Wolf <gwolf@debian.org>  Thu, 11 Sep 2008 22:48:18 -0500
-
-libcurses-perl (1.23-1) unstable; urgency=low
-
-  [ Roberto C. Sanchez ]
-  * New upstream release.
-
-  [ David Paleino ]
-  * debian/control: removed myself from Uploaders
+  Fix warning about extra argument to c_setmevent .
 
- -- Roberto C. Sanchez <roberto@debian.org>  Sat, 15 Mar 2008 23:09:06 -0400
+  Fix documentation for "not defined in your Curses library" errors.
+  (broken in 1.28).
 
-libcurses-perl (1.21-1) unstable; urgency=low
+  Fix demo programs' recognition of "not defined in your Curses library"
+  errors (broken in 1.28).
 
-  * New upstream release.
-  * debian/watch: extend regexp for matching upstream releases.
-  * Drop patch 01-add_GNU-kFreeBSD.patch (now included in upstream
-    Makefile.PL) and quilt framework accordingly.
-  * Run $(PERL) Makefile.PL in debian/rules's clean target if Makefile
-    exists, otherwise clean fails.
-  * Remove debian/dirs, the necessary directories are created my $(MAKE)
-    install anyway.
-  * Set debhelper compatibility level to 6.
-  * Remove debian/libcurses-perl.examples and install examples directly from
-    debian/rules.
-  * debian/copyright: add additional copyright holders and convert to new
-    format.
-  * Install HISTORY as upstream changelog.
-  * Install upstream README file which contains a few hints.
-  * debian/rules: move dh_clean before make distclean.
-  * Add /me to Uploaders.
+New in 1.29 (Released April 6, 2014)
 
- -- gregor herrmann <gregor+debian@comodo.priv.at>  Sun, 17 Feb 2008 02:28:17 +0100
+  Add an alternate set of functions (getchar, ungetchar, getstring,
+  instring, addstring, insstring) providing a more Perl-like interface,
+  converting from and to Perl strings (instead of passing data to the C
+  library verbatim) and using wide character functions if available in the
+  underlying curses library.
 
-libcurses-perl (1.20-2) unstable; urgency=low
+  Written by Edgar Fu�, Mathematisches Institut der Uni Bonn,
+  <ef@math.uni-bonn.de>
 
-  [ gregor herrmann ]
-  * debian/rules: delete /usr/share/perl5 only if it exists.
+New in 1.28 (Released January 27, 2010)
 
-  [ Niko Tyni ]
-  * Fix the 'clean' target, it didn't work when Makefile.PL got unpatched.
-  * Build with wide character support from libncursesw5. (Closes: #462773)
-    + no 'form.h problem' anymore, so include FORMS support again.
-      (Closes: #462775)
-  * Remove control and description references to perl-curses, as the rename
-    was over ten years ago.
-  * Small debian/rules enhancements.
-  * Re-add David in the Uploaders field.
+  Disable Curses::Var::STORE.  It doesn't work (doesn't even compile) with
+  newer Ncurses (due to updates to make Ncurses reentrant).  One can
+  re-enable it by defining ALLOW_VARS_STORE in c-config.h.
 
- -- Niko Tyni <ntyni@debian.org>  Sun, 10 Feb 2008 22:16:16 +0200
+  Improve "not provided by your vendor" message.
 
-libcurses-perl (1.20-1) unstable; urgency=low
+New in 1.27 (Released January 20, 2009)
 
-  [ David Paleino ]
-  * New upstream release
-  * debian/rules:
-    - don't ignore the return value of $(MAKE) clean
-    - updated to use quilt patch system
-  * debian/control:
-    - added myself to Uploaders
-    - updating Standards-Version to 3.7.3
-    - adding quilt to Build-Depends
-  * debian/patches:
-    - 01-add_GNU-kFreeBSD.patch added (Closes: #416459)
-  * the use of libncursesw instead of libncurses, when available,
-    was already implemented in 1.16 in August 2007. (Closes: #346476)
+  Extraneous .i and .s files in 1.26 removed.  'make clean' cleans all
+  .i and .s too.
 
-  [ gregor herrmann ]
-  * debian/control: Added: Vcs-Svn field (source stanza); Vcs-Browser
-    field (source stanza); Homepage field (source stanza).
-  * Set Maintainer to Debian Perl Group.
-  * Use dist-based URL in debian/watch.
+  'gen' directory is replaced by gen.tar file, so CPAN doesn't index
+  the stuff in there.  That directory is stuff for developing the Curses
+  package, not stuff for users.
 
-  [ Damyan Ivanov ]
-  * Note 01-add_GNU-kFreeBSD.patch is forwarded upstream
-  * More debian/rules cleanup
-    + move $(MAKE) and $(MAKE) test to build target
-    + use DESTDIR and PREFIX when installing
-    + use distclean instead of clean; no need to remove Makefile.old
-    + drop unused dh_installman and dh_link
-    + add dh_shlibdeps call
-    + support noopt in DEB_BUILD_OPTIONS
-  * Bump debhelper compatibility level to 5; adjust build-dependency
-    accordingly
-  Put me in Uploaders instead of David
+New in 1.26 (Released January 3, 2009)
 
- -- Damyan Ivanov <dmn@debian.org>  Mon, 17 Dec 2007 22:46:14 +0200
+  newterm() is available and putwin() and getwin() work in newer Perl (with
+  PerlIO).  We now use PerlIO_findFile().
 
-libcurses-perl (1.13-1) unstable; urgency=low
+1.25 doesn't exist (The name got burned in a CPAN upload mistake).
 
-  * New upstream release (Closes: #338211)
-  * Policy version bump (No other changes)
-  * Hardcoded path instead of regexp on pwd (which may have been causing buildd issues)
+New in 1.24 (Released September 10, 2008)
 
- -- Jay Bonci <jaybonci@debian.org>  Sun, 11 Dec 2005 23:59:14 -0500
+  Export KEY_RESIZE, KEY_EVENT.
 
-libcurses-perl (1.12-1) unstable; urgency=low
+  For Netbsd, allow both Netbsd and BSD guesses via CURSES_LIBTYPE,
+  and default to Ncurses.  Used to guess only BSD.  From Ulrich Habel
+  rhaen@NetBSD.org .
 
-  * New upstream release
+  Add guess capability for Dragonfly.  From Ulrich Habel
+  rhaen@NetBSD.org .
 
- -- Jay Bonci <jaybonci@debian.org>  Tue,  7 Jun 2005 10:49:09 -0400
+New in 1.23 (Released March 9, 2008)
 
-libcurses-perl (1.11-1) unstable; urgency=low
+  Fix crash of Makefile.PL on Windows.
 
-  * New upstream version
-  * Updated debian/watch file
+New in 1.22 (Released February 29, 2008)
 
- -- Jay Bonci <jaybonci@debian.org>  Thu, 17 Mar 2005 01:32:05 -0500
+  Nothing.  Just a packaging fix.
 
-libcurses-perl (1.08b-1) unstable; urgency=low
+New in 1.21 (Released February 15, 2008)
 
-  * New upstream version (Closes: #285525)
-  * Adds MENU support
-  * Updated debian/watch to find new, more liberal filename
+  Don't undefine 'bool' macro in c-darwin hints file.
 
- -- Jay Bonci <jaybonci@debian.org>  Tue, 28 Dec 2004 18:49:53 -0500
+New in 1.20 (Released November 19, 2007)
 
-libcurses-perl (1.06-11) unstable; urgency=low
+  Fix missing comment delimiter.
 
-  * Adds debian/watch so uscan will actually work
-  * Adds download URL to copyright. (Closes: #241730)
-  * Adds PANELS support per INSTALL file (Closes: #252057)
+New in 1.19 (Released November 18, 2007)
 
- -- Jay Bonci <jaybonci@debian.org>  Sun, 12 Sep 2004 02:47:42 -0400
+  Make it work on 5.005 again, using ppport.h (Devel::PPPort).
+  From Slaven Rezic - slaven <at> rezic <dot> de .
 
-libcurses-perl (1.06-10) unstable; urgency=low
+  Fix uninitialized value in Makefile.PL on a system without BSD Curses or
+  Ncurses in a common place.
 
-  * Fixes FTBFS. binary-arch vs. binary-all (Closes: #234957)
+  Reverse change to chgat() in 1.16.  Make expected argument count 4.
 
- -- Jay Bonci <jaybonci@debian.org>  Sat, 28 Feb 2004 17:16:10 -0500
+There was never a 1.18 release; problems with PAUSE prevent using that
+release number.
 
-libcurses-perl (1.06-9) unstable; urgency=low
+New in 1.17 (Released October 14, 2007)
 
-  * New maintainer (Closes: #233664)
-  * Updated debian/rules file to match my standard rules template
-  * Added debian/compat file per debhelper best practices
-  * Moved demo files to being installed via dh_installexamples
-  * Change perl location to be /usr/bin/perl in all files (Closes: #230145)
-  * Policy version bump to 3.6.1.0
-  * Changed section to perl
-  * Changed priority to optional
-  * Removed dependancy on debmake
-  * Bumped debhelper dependancy to (>= 4.0)
-  * Removed bad =over 4 section in POD (Curses.pm)
-  * Removed bad external link error in POD (Curses.pm)
+  Fix bug - can't find c-config.h on a system with ncursesw.
 
- -- Jay Bonci <jaybonci@debian.org>  Tue, 24 Feb 2004 15:57:00 -0500
+  Make cdemo work on Windows.
 
-libcurses-perl (1.06-8) unstable; urgency=low
+  Don't undefine SP macro with Pdcurses.  (Otherwise it won't compile;
+  don't know why we used to undefine SP).
 
-  * Orphan this package
+  In Windows hints file, #include curses.h instead of pdcurses.h.  It
+  seems to be called curses.h these days.
 
- -- Igor Genibel <igenibel@debian.org>  Thu, 19 Feb 2004 11:18:47 +0100
+New in 1.16 (August 7, 2007)
 
-libcurses-perl (1.06-7) unstable; urgency=low
+  Use Ncursesw (Ncurses with wide character functions) instead of
+  Ncurses if available.
 
-  * New Maintainer (Closes: #206098)
-  * Fix MENU FORMS support (Closes: #186128)
-  * Bumped to Standards 3.6.0 some changes in control and rules file
-  * Make the package lintian clean
+  Undefine "tab" macro, defined by Curses header file.  It interferes
+  with perl.h.
 
- -- Igor Genibel <igenibel@debian.org>  Tue, 19 Aug 2003 10:06:09 +0200
+  Fix demo.form to use L! instead of J in the pack template that generates
+  the new_form() argument.  Apparently, J is something from older Perl
+  and doesn't exist in current Perl.
 
-libcurses-perl (1.06-6) unstable; urgency=low
+  Put some documentation of the library in comments in demo.form.
 
-  * Orphaning this package.
+  Use L! instead of I in the pack template in demo.menu.
 
- -- John Goerzen <jgoerzen@complete.org>  Mon, 18 Aug 2003 14:19:03 -0500
+  Change SvPV(X,PL_na) to SvPV_nolen(X) to get with the times.
 
-libcurses-perl (1.06-5) unstable; urgency=low
+  Change #!/usr/local/bin/perl to #! /usr/bin/perl .
 
-  * Rebuilt to get new Perl deps.  Closes: #176714.
+  Fix bug: chgat() requires an extra, meaningless, argument.  Fix changes
+  expected argument count from 4 to 3.
 
- -- John Goerzen <jgoerzen@complete.org>  Wed,  5 Feb 2003 15:06:07 -0600
+New in 1.15 (October 8, 2006)
 
-libcurses-perl (1.06-4) unstable; urgency=low
+  Add a simple load test 00-load.t.
 
-  * Work around gcc weirdness on hppa using patch from LaMont Jones.
-    Closes: #160527.
+  Makefile.PL: use cdemo.obj instead of cdemo.o on Windows.
 
- -- John Goerzen <jgoerzen@complete.org>  Tue, 15 Oct 2002 13:09:50 -0500
+  Makefile.PL: Guess ncurses/bsd based on what .h files exist.
 
-libcurses-perl (1.06-3) unstable; urgency=low
+  Fix bug in Makefile.PL: doesn't use curses type in guess at c-config.h
+  (e.g. tries to use c-freebsd.h when it should use c-freebsd.bsd.h).
 
-  * Added pointer to Artistic license.  Closes: #157562.
-  * Includes more demos now.
-  * Explicitly specifies includes and libs with patch from
-    #143118.  Closes: #143118.
+  Change all sv_isa() to sv_derived_from() so you can use subclasses.
+  Thanks Leigh <leighbrown@hsbc.com>.
 
- -- John Goerzen <jgoerzen@complete.org>  Tue, 15 Oct 2002 09:22:44 -0500
+  Rename default Darwin (Mac OS X) hints file (ca 2001) to c-darwin.old, and
+  the newer one ca 2004) to c-darwin.old so as to be the default.  We're
+  guessing that the newer one applies to more systems today.
 
-libcurses-perl (1.06-2.1) unstable; urgency=low
+New in 1.14 (June 3, 2006)
 
-  * NMU
-  * Use PerlIO_FindFILE to fetch FILE* from PerlIO objects.
-  * Build against perl 5.8.0.
+  Make demo.form work on 64 bit machine.
 
- -- Brendan O'Dea <bod@debian.org>  Tue, 27 Aug 2002 22:09:54 +1000
+  Add some narration to Makefile.PL to help with diagnosis.
 
-libcurses-perl (1.06-2) unstable; urgency=low
+  Move undef of 'instr' from individual hint files to Curses.c and add
+  explanation.
 
-  * Added build-dep on debhelper.  Closes: #133635.
+  Use perl -w instead of 'use warnings' in Makefile.PL so it works with
+  older Perl.
 
- -- John Goerzen <jgoerzen@complete.org>  Wed, 13 Feb 2002 09:19:59 -0500
+New in 1.13 (October 10, 2005)
 
-libcurses-perl (1.06-1) unstable; urgency=low
+  Fix so it builds on current Cygwin.
 
-  * New upstream release.
-  * Added build-depends on libncurses5-dev and debmake.  Closes: #89751.
-  * Applied patch from Marcus Brinkmann
-    <Marcus.Brinkmann@ruhr-uni-bochum.de> to build on Hurd.
-    Closes: #105560.
-  * Fixed path to perl in demo.  Closes: #111054.
+  Some kind of build fix to get panels, forms, and menu functions to build.
 
- -- John Goerzen <jgoerzen@complete.org>  Tue, 12 Feb 2002 08:23:55 -0500
+New in 1.12 (March 17, 2005)
 
-libcurses-perl (1.05-2) unstable; urgency=low
+  Build bug fixed: panel, forms, menu libs not found in build.
 
-  * Fixed a Makefile.PL bug that caused things to be placed
-    in /usr/local.  Thanks to Colin Watson for the patch in 88937.
-    Closes: #88937.
+  Build bug fixed: Curses.pm treats version as number, so 1.10 == 1.1 .
 
- -- John Goerzen <jgoerzen@complete.org>  Tue, 13 Mar 2001 10:44:05 -0500
+New in 1.11 (March 12, 2005)
 
-libcurses-perl (1.05-1) unstable; urgency=low
+  Various cleanup and improved diagnostics in the build.
 
-  * New upstream release.  Closes: #85756, #83461, #85256.
-  * Rebuilt with Perl 5.6.  Closes: #80720.
+New in 1.10 (March 11, 2005)
 
- -- John Goerzen <jgoerzen@complete.org>  Thu, 22 Feb 2001 11:46:29 -0500
+  Build bug fixed: Makefile has undefined variable $libtyp.
 
-libcurses-perl (1.02-3) unstable; urgency=low
+  Build bug fixed: Makefile computes wrong guess hint file name.
 
-  * Update to standards-version 3.0.1
-  * Update to FHS.
-  * Old bug fixed.  Closes: #41520.
+New in 1.09 (March 6, 2005)
 
- -- John Goerzen <jgoerzen@complete.org>  Wed, 22 Sep 1999 08:54:22 -0500
+  - Makefile.PL searches for curses header files instead of assuming
+    based on $OSNAME.
 
-libcurses-perl (1.02-2.1) unstable; urgency=low
+  - Makefile.PL warns user to reconfigure environment when form.h is
+    in /usr/include rather than just add -I/usr/include to the compile
+    (this concerns the problem with the conflicting Perl form.h file).
 
-  * NMU for the perl upgrade. Closes: #41520
-  * Corrected the rules files to conform with perl policy 1.0.1
-  * Compiled with perl-5.005
+New in 1.08 (November 2004)
 
- -- Raphael Hertzog <rhertzog@hrnet.fr>  Sun, 18 Jul 1999 22:42:26 +0200
+  - perl.syms more verbose so you can diagnose failures.
 
-libcurses-perl (1.02-2) unstable; urgency=low
+  - You can use environment variables instead of modifying Makefile.PL
+    to set your -I, -L, etc. options for the Curses libraries.
 
-  * Now linked with libncurses4 instead of ncurses3.4
+  - c-linux.ncurses.h hints file includes ncurses.h, not curses.h.
 
- -- John Goerzen <jgoerzen@complete.org>  Sat, 31 Oct 1998 15:33:01 -0600
+  - New c-darwin-thread-multi-2level.h hints file.
 
-libcurses-perl (1.02-1) unstable; urgency=low
+New in 1.07 (September 2004)
 
-  * New upstream release
-  * Now properly builds, without an ugly hack to the Makefile.
-    Fixes bug #16714.
-  * Rebuilt with an updated debmake, fixing bug #19350.
-    Other comments regarding that bug report (lintian-generated):
-    * Standards-version has been updated
+  - Call to Perl_sv_isa() changed to sv_isa() because the former doesn't
+    work on some systems (causes a build failure).
 
- -- John Goerzen <jgoerzen@complete.org>  Fri, 13 Mar 1998 21:38:50 -0600
+New in 1.06 (July 2001)
 
-libcurses-perl (1.01-1) unstable; urgency=low
+ o Now requires perl5.005 or better to run.  (You can probably run it
+   in perl5.002-perl5.004 by grabbing newCONSTSUB out of the IO
+   distribution on CPAN and editing all uses of "foreach my $var" in
+   my perl scripts.)
 
-  * Recompiled for libc6 and Perl 5.004.  Fixes bug #15177
-  * No longer installs a perllocal.pod.  Documentation is in
-    /usr/man/man3/Curses.3pm.gz.  Fixes bugs #12749, #12846
-  * Package has been renamed from perl-curses to libcurses-perl to
-    comply with informal standard.  Fixes bug #11028.
-  * Enhanced debian/rules's clean target
+ o Did lots of fiddling with the file generation in an effort to make
+   it more comprehensible.  In doing so, I moved around the way some
+   things were done and probably broke it on some systems with weird
+   compilers.  Please let me know.
 
- -- John Goerzen <jgoerzen@complete.org>  Sun, 28 Dec 1997 14:25:51 -0600
+ o changed the "Curses->new()" function to be a bit less clever.
 
-perl-curses (1.01-1) unstable; urgency=low
+ o Works with libmenu!  Many thanks to Yury Pshenichny <yura at zp.ua>
+   who did most of the actual work.
 
-  * Initial Release.
-  * This is the Curses module from CPAN.
+   Update: Well, sort of works.  For some reason beyond my ken, it
+   doesn't work with Solaris (2.6) libmenu. (The items won't attach to
+   the menu.)  ncurses menu, both 1.9.9 and 5.2, seem to work fine.
 
- -- John Goerzen <jgoerzen@complete.org>  Mon, 2 Jun 1997 12:02:47 -0500
+ o Works with libform too.  Ho hum.  ;)  This one does appear to
+   work with Solaris libform.
+
+ o Added the following ncurses extension functions:
+
+   use_default_colors()
+   assume_default_colors()
+   define_key()
+   keybound()
+   keyok()
+   resizeterm()
+
+   (Thanks to neild at misago.org, hans at kolej.mff.cuni.cz)
+
+ o Re-enabled the functions:
+
+   attr_get()
+   attr_off()
+   attr_on()
+   attr_set()
+
+ o Between the functions exposed and the functions listed in the
+   pod as not exposeded, those are all the ones I know about.
+   Got any more?  Let me know.
+
+ o Fixed 64 bit issue with getch() and possibly others, truncating
+   returns of `chtype' to 32 bits.  Note that this could possibly
+   break some OSes.  Please let me know.
+   (Thanks to Randall.G.Steiner at bankofamerica.com)
+
+ o Fixed bug where @ARGV was always being cleared, and so no arguments
+   ever got to MakeMaker.
+   (Thanks to bdlow at nortelnetworks.com)
+
+ o Added hints for Darwin/Mac OS X system.
+   (Thanks to sdietrich at emlab.com)
+
+ o Added note to NETBSD users at the bottom of this README.
+
+ o Added a security notice to the README and pod.
+   (Thanks to connor at ing.umu.se)
+
+ o Has anyone successfully used the mouse event stuff?
+
