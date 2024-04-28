@@ -1,5 +1,5 @@
 PKG_NAME := perl-Curses
-URL = https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.44.tar.gz
-ARCHIVES = http://http.debian.net/debian/pool/main/libc/libcurses-perl/libcurses-perl_1.36-1.debian.tar.xz deblicense/
+URL = https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.45.tar.gz
+ARCHIVES = 
 
 include ../common/Makefile.common
