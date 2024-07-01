@@ -7,7 +7,7 @@
 #
 Name     : perl-Curses
 Version  : 1.45
-Release  : 36
+Release  : 37
 URL      : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.45.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-1.45.tar.gz
 Summary  : unknown
